@@ -14,6 +14,9 @@ class Example
         std::vector<double> xs;
 
     public:
+        static constexpr int NUM_SCALARS = 2;
+
+    public:
         Example() = delete;
         Example(Tools::RNG& rng);
         double perturb(Tools::RNG& rng);
