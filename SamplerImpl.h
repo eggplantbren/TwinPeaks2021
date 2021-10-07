@@ -23,6 +23,7 @@ Sampler<T>::Sampler(Tools::RNG&& _rng)
         particles.emplace_back(std::move(t));
         scalars.emplace_back(std::move(ss));
     }
+    context.add_points(scalars);
 
     std::cout << "done." << std::endl;
 }

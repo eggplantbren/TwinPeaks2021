@@ -1,6 +1,7 @@
 #ifndef TwinPeaks2021_Sampler_h
 #define TwinPeaks2021_Sampler_h
 
+#include "Context.h"
 #include "Tools/RNG.hpp"
 
 namespace TwinPeaks2021
@@ -13,6 +14,7 @@ class Sampler
         Tools::RNG rng;
         std::vector<T> particles;
         std::vector<std::vector<double>> scalars;
+        Context context;
 
     public:
         Sampler() = delete;

@@ -7,7 +7,7 @@ namespace TwinPeaks2021
 namespace Constants
 {
 
-static constexpr int NUM_PARTICLES = 100;
+static constexpr int NUM_PARTICLES = 1000;
 
 } // namespace Constants
 

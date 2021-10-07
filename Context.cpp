@@ -26,4 +26,10 @@ bool Context::ucc_is_zero(const std::vector<double>& point) const
     return true;
 }
 
+void Context::add_points(const std::vector<std::vector<double>>& new_points)
+{
+    for(const auto& new_point: new_points)
+        points.push_back(new_point);
+}
+
 } // namespace

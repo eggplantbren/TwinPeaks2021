@@ -24,6 +24,9 @@ class Context
         // Uses short circuiting.
         bool ucc_is_zero(const std::vector<double>& point) const;
 
+        // Add points to the context
+        void add_points(const std::vector<std::vector<double>>& new_points);
+
 };
 
 
