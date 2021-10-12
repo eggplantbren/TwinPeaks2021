@@ -3,6 +3,7 @@
 
 #include "Constants.h"
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 
 namespace TwinPeaks2021
@@ -69,9 +70,12 @@ void Sampler<T>::update()
     if(iteration > 1)
         mode = mode | std::ios::app;
     std::fstream fout("output.csv", mode);
+    fout << std::setprecision(12);
     if(iteration == 1)
-        fout << "iteration,x,y\n";
-    fout << iteration << ',';
+        fout << "iteration,logp,f,g\n";
+    double logp = iteration*log(1.0 - 1.0/(Constants::NUM_PARTICLES+1))
+                        - log(Constants::NUM_PARTICLES + 1);
+    fout << iteration << ',' << logp << ',';
     fout << scalars[which][0] << ',' << scalars[which][1] << std::endl;
     fout.close();
     std::cout << "done." << std::endl;
