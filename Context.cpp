@@ -16,20 +16,15 @@ bool all_greater(const std::vector<double>& xs,
     return true;
 }
 
-bool Context::ucc_is_zero(const std::vector<double>& point) const
+void Context::add(const std::vector<double>& rectangle)
 {
-    for(const auto& context_point: points)
+    for(auto it=rectangles.begin(); it != rectangles.end(); ++it)
     {
-        if(all_greater(context_point, point))
-            return false;
+        if(all_greater(rectangle, *it))
+            it = rectangles.erase(it);
     }
-    return true;
-}
 
-void Context::add_points(const std::vector<std::vector<double>>& new_points)
-{
-    for(const auto& new_point: new_points)
-        points.push_back(new_point);
+    rectangles.push_front(rectangle);
 }
 
 } // namespace

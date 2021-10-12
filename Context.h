@@ -1,6 +1,7 @@
 #ifndef TwinPeaks2021_Context_h
 #define TwinPeaks2021_Context_h
 
+#include <list>
 #include <vector>
 
 namespace TwinPeaks2021
@@ -15,18 +16,13 @@ bool all_greater(const std::vector<double>& xs,
 class Context
 {
     private:
-        std::vector<std::vector<double>> points;
+        std::list<std::vector<double>> rectangles;
 
     public:
         Context() = default;
 
-        // Is the UCC of the given point zero?
-        // Uses short circuiting.
-        bool ucc_is_zero(const std::vector<double>& point) const;
-
-        // Add points to the context
-        void add_points(const std::vector<std::vector<double>>& new_points);
-
+        // Add a new rectangle (removing any redundant ones first)
+        void add(const std::vector<double>& rectangle);
 };
 
 

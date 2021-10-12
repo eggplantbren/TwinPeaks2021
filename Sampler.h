@@ -15,11 +15,12 @@ class Sampler
         std::vector<T> particles;
         std::vector<std::vector<double>> scalars;
         Context context;
+        int iteration;
 
     public:
         Sampler() = delete;
         Sampler(Tools::RNG&& _rng);
-
+        void update();
 };
 
 } // namespace
