@@ -27,4 +27,14 @@ void Context::add(const std::vector<double>& rectangle)
     rectangles.push_front(rectangle);
 }
 
+bool Context::check(const std::vector<double>& point) const
+{
+    for(auto it=rectangles.begin(); it != rectangles.end(); ++it)
+    {
+        if(all_greater(*it, point))
+            return false;
+    }
+    return true;
+}
+
 } // namespace

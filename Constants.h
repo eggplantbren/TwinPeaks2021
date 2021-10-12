@@ -8,6 +8,7 @@ namespace Constants
 {
 
 static constexpr int NUM_PARTICLES = 1000;
+static constexpr int MCMC_STEPS = 1000;
 
 } // namespace Constants
 

@@ -2,6 +2,7 @@
 #define TwinPeaks2021_SamplerImpl_h
 
 #include "Constants.h"
+#include <fstream>
 #include <iostream>
 
 namespace TwinPeaks2021
@@ -34,6 +35,8 @@ void Sampler<T>::update()
 {
     ++iteration;
 
+    std::cout << "Iteration " << iteration << '.' << std::endl;
+
     // Compute UCCs
     // TODO: No need to fully recompute this each iteration
     std::cout << "Computing UCCs..." << std::flush;
@@ -56,9 +59,59 @@ void Sampler<T>::update()
 
     // Particle to kill
     int which = candidates[rng.rand_int(candidates.size())];
+    context.add(scalars[which]);
 
     std::cout << "done." << std::endl;
 
+    // CSV output
+    std::cout << "Saving worst particle..." << std::flush;
+    auto mode = std::ios::out;
+    if(iteration > 1)
+        mode = mode | std::ios::app;
+    std::fstream fout("output.csv", mode);
+    if(iteration == 1)
+        fout << "iteration,x,y\n";
+    fout << iteration << ',';
+    fout << scalars[which][0] << ',' << scalars[which][1] << std::endl;
+    fout.close();
+    std::cout << "done." << std::endl;
+
+    // Replace particle
+    std::cout << "Generating new particle..." << std::flush;
+    replace_particle(which);
+    std::cout << "done." << std::endl;
+
+    std::cout << std::endl;
+}
+
+
+template<typename T>
+void Sampler<T>::replace_particle(int which)
+{
+    int copy;
+    while(true)
+    {
+        copy = rng.rand_int(Constants::NUM_PARTICLES);
+        if(copy != which)
+            break;
+    }
+
+
+    int& k = which;
+    for(int i=0; i<Constants::MCMC_STEPS; ++i)
+    {
+        T proposal = particles[k];
+        double logh = proposal.perturb(rng);
+        if(rng.rand() <= exp(logh))
+        {
+            std::vector<double> proposal_scalars = proposal.scalars();
+            if(context.check(proposal_scalars))
+            {
+                particles[k] = proposal;
+                scalars[k] = proposal_scalars;
+            }
+        }
+    }
 
 }
 

@@ -23,6 +23,9 @@ class Context
 
         // Add a new rectangle (removing any redundant ones first)
         void add(const std::vector<double>& rectangle);
+
+        // Check a point against the context
+        bool check(const std::vector<double>& point) const;
 };
 
 

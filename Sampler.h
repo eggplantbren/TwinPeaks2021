@@ -21,6 +21,7 @@ class Sampler
         Sampler() = delete;
         Sampler(Tools::RNG&& _rng);
         void update();
+        void replace_particle(int which);
 };
 
 } // namespace
