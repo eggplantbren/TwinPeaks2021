@@ -10,10 +10,14 @@ logl = output["f"]/20.0 + output["g"]
 log_post = output["logp"] + logl
 logz = dn4.logsumexp(log_post)
 log_post -= logz
-print(logz) # -843.76
+print(logz) # -843.76 for 20-d
 
 high = np.max(log_post) - log_post < 5.0
 
+plt.figure(1)
+plt.plot(output["iteration"], np.exp(log_post))
+
+plt.figure(2)
 plt.plot(output["f"], output["g"], ".", markersize=1, alpha=0.5)
 plt.plot(output["f"][high], output["g"][high], "r.", markersize=1, alpha=0.5)
 
